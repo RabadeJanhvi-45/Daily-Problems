@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int countTrianglesOptimized(vector<int>& arr) {
+    int n = arr.size();
+    int count = 0;
+
+    // Sort the array
+    sort(arr.begin(), arr.end());
+
+    // Fix the largest side
+    for (int k = n - 1; k >= 2; k--) {
+        int i = 0, j = k - 1;
+
+        // Use two pointers to find valid pairs
+        while (i < j) {
+            if (arr[i] + arr[j] > arr[k]) {
+                // All elements between i and j form valid triangles
+                count += (j - i);
+                j--;
+            } else {
+                i++;
+            }
+        }
+    }
+
+    return count;
+}
+
+int main() {
+    vector<int> arr = {4, 6, 3, 7};
+    cout << "Optimized Count: " << countTrianglesOptimized(arr) << endl;
+    return 0;
+}

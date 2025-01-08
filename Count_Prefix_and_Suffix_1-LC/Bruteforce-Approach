@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int countPrefixSuffixPairsBruteForce(const vector<string>& words) {
+    int n = words.size();
+    int count = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            string prefix = words[i];
+            string suffix = words[i];
+            string target = words[j];
+
+            // Check if words[i] is a prefix of words[j]
+            bool isPrefix = target.substr(0, prefix.length()) == prefix;
+
+            // Check if words[i] is a suffix of words[j]
+            bool isSuffix = target.substr(target.length() - suffix.length()) == suffix;
+
+            if (isPrefix && isSuffix) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+int main() {
+    vector<string> words = {"a", "aba", "ababa", "aa"};
+    cout << "Brute Force Result: " << countPrefixSuffixPairsBruteForce(words) << endl;
+    return 0;
+}
